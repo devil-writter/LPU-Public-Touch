@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Result</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>LPU Public Touch</h1>
+    <div class="form-container" id="formContainer">
+        <form id="searchForm">
+            <label for="reg_number">Enter Registration Number:</label>
+            <input type="text" id="reg_number" name="reg_number">
+            <button type="submit">Search</button>
+        </form>
+    </div>
+
+    <h2>Search Result</h2>
+    <div id="searchResult">
+        <p>Name: <span id="name"></span></p>
+        <p>Reg no: <span id="regNo"></span></p>
+        <p>CGPA: <span id="cgpa"></span></p>
+        <p>Gender: <span id="gender"></span></p>
+        <p>Mobile number: <span id="mobile"></span></p>
+        <p>Email: <span id="email"></span></p>
+    </div>
+
+    <table id="courseTable">
+        <thead>
+            <tr>
+                <th>Course Code</th>
+                <th>Grade</th>
+            </tr>
+        </thead>
+        <tbody id="courseTableBody"></tbody>
+    </table>
+
+    <script src="script.js"></script>
+</body>
+</html>

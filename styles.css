@@ -1,0 +1,54 @@
+
+body {
+    background-color: #e0e0e0; /* Set blue color as the background theme */
+    padding-top: 0;
+}
+
+h1 {
+    text-align: center; /* Align h1 center */
+    background-color: #2196F3; /* Blue background color */
+    color: white; /* White text color */
+    padding: 10px; /* Add padding */
+    padding-top: 0;
+    margin-bottom: 20px; /* Add margin at the bottom */
+}
+
+.form-container {
+    display: flex;
+    justify-content: center; /* Center align content horizontally */
+    margin-bottom: 20px; /* Add margin at the bottom */
+}
+
+form {
+    width: 50%; /* Set form width to 50% of the parent container */
+    max-width: 400px; /* Set maximum width for better responsiveness */
+}
+
+input[type="text"],
+button {
+    width: 100%; /* Make input and button width 100% */
+    box-sizing: border-box; /* Include padding and border in element's total width and height */
+    padding: 8px; /* Add padding */
+    margin-bottom: 10px; /* Add margin below input elements */
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 20px auto;
+}
+
+th, td {
+    border: 1px solid black; /* Set black border for table cells */
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #2196F3; /* Set blue color as the table header background */
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
