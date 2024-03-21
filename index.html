@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Record Search</title>
+    <style>
+      body {
+        background-color: #f5f5f5;
+        margin: 4%;
+        margin-top: 0;
+        font-family: "Arial", sans-serif;
+        font-size: 16px;
+        font-weight: 400;
+      }
+
+      h1 {
+        text-align: center;
+        background-color: #2196f3;
+        color: white;
+        padding: 20px;
+      }
+
+      .form-container {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+      }
+
+      form {
+        width: 50%;
+        max-width: 400px;
+      }
+
+      input[type="text"],
+      button {
+        width: calc(100% - 16px);
+        box-sizing: border-box;
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+
+      input[type="text"]:hover,
+      button:hover {
+        border-color: #0f7ae5;
+      }
+
+      button {
+        background-color: #2196f3;
+        color: white;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #0f7ae5;
+      }
+
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 20px auto;
+      }
+
+      th {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+        font-weight: bold;
+        background-color: #2196f3;
+        color: white;
+      }
+
+      th[colspan="2"] {
+        background-color: #4caf50;
+        color: white;
+        text-align: center;
+      }
+
+      td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+      }
+
+      tr {
+        margin-bottom: 5px;
+      }
+
+      tr:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+
+      #result {
+        margin: 20px auto;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: #fff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        font-family: "Arial", sans-serif; /* Change font family */
+        font-size: 14px; /* Adjust font size */
+      }
+
+
+      .record-item,.record-value {
+        font-style: italic; /* Italicize record values */
+      }
+    </style>
+  </head>
+  <body>
+    <h1>LPU Public Touch</h1>
+    <div class="form-container">
+      <form>
+        <input type="text" id="regNo" placeholder="Enter registration number" />
+        <button type="button" onclick="searchRecord()">Search</button>
+      </form>
+    </div>
+    <div id="result"></div>
+    <div id="tablesContainer"></div>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script>
+      let records = [];
+      d3.csv("data.csv").then(function (data) {
+        records = data;
+      });
+
+      function searchRecord() {
+        const regNo = document.getElementById("regNo").value;
+        const record = records.find((r) => r.RegisterationNumber === regNo);
+        if (record) {
+          document.getElementById("result").innerHTML =
+            `<span class="record-item">Reg no:</span> <span class="record-value">${record.RegisterationNumber}</span><br>` +
+            `<span class="record-item">School name:</span> <span class="record-value">${record.SchoolName}</span><br>` +
+            `<span class="record-item">CGPA:</span> <span class="record-value">${record.Cgpa}</span><br>` +
+            `<span class="record-item">Gender:</span> <span class="record-value">${
+              record.Gender === "M" ? "Male" : "Female"
+            }</span>`;
+
+          const tablesContainer = document.getElementById("tablesContainer");
+          tablesContainer.innerHTML = "";
+          const terms = [
+            ...new Set(
+              records
+                .filter((r) => r.RegisterationNumber === regNo)
+                .map((r) => r.TermId)
+            ),
+          ];
+          terms.forEach((term) => {
+            const termRecords = records.filter(
+              (r) => r.RegisterationNumber === regNo && r.TermId === term
+            );
+            const table = document.createElement("table");
+            table.innerHTML = `<thead>
+              <th colspan="2" style="background-color: #4CAF50; color: white;text-align: center;">Term ID: ${term}</th> 
+                      <tr>
+                              <th>Course Code</th>
+                              <th>Grade</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          ${termRecords
+                            .map(
+                              (r) =>
+                                `<tr><td>${r.CourseCode}</td><td>${r.Grade}</td></tr>`
+                            )
+                            .join("")}
+                      </tbody>`;
+            tablesContainer.appendChild(table);
+          });
+        } else {
+          document.getElementById("result").innerHTML =
+            "Registration number not found.";
+        }
+      }
+    </script>
+  </body>
+</html>
