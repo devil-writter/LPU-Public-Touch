@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let students = [];
 
   Promise.all([
-    fetch("data.json")
+    fetch("https://drive.google.com/file/d/1L4Yt2Ptbc95a_IdwwZB_PNae_ehSWdXp")
       .then((response) => response.json())
       .then((data) => (records = data)),
     fetch("students.json")
